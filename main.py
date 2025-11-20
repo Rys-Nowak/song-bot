@@ -3,7 +3,8 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from examples import examples
 
-TITLE = "polow"
+TITLE = "blues_o_czwartej"
+
 INPUT_FILE = "input/input.txt"
 OUTPUT_DIR = "output"
 
@@ -57,7 +58,12 @@ def main():
         response = llm.invoke(messages)
         print("\nOdpowiedź LLM:\n", response.content)
         with open(os.path.join(OUTPUT_DIR, f"{TITLE}.tex"), "w", encoding="utf-8") as f:
-            f.write(response.content.replace(" egin", "\\begin").replace(" rk ", "\\brk "))
+            f.write(response.content.
+                    replace(" egin", "\\begin").
+                    replace(" rk ", "\\brk ").
+                    replace("	extnote", "\\textnote").
+                    replace("\nolyrics", "\n\\nolyrics")
+                    )
 
     except Exception as e:
         print("Błąd komunikacji z Gemini API:", e)
