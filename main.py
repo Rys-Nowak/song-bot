@@ -3,7 +3,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from examples import examples
 
-TITLE = "blues_o_czwartej"
+TITLE = "gor_mi_malo"
 
 INPUT_FILE = "input/input.txt"
 OUTPUT_DIR = "output"
@@ -41,7 +41,8 @@ def main():
                        "Zachowaj dodatkowe informacje takie jak Intro, Solo, Kapodaster itp. i umieść w tekście za pomocą \\musicnote. "
                        "Używaj komend z pakietu songs takich jak \\rep kiedy to potrzebne. "
                        "Do oznaczenia chwytów obok tekstu używaj dodatkowej komendy \\lchords (np. \\lchords{a e G}). "
-                       "Do oznaczenie chwytów w intro lub solo/przygrywce zawsze używaj komendy \\nolyrics i składni \[<chwyt>].\n"
+                       "Do oznaczenie chwytów w intro lub solo/przygrywce zawsze używaj komendy \\nolyrics, na początku każdej nowej linii i składni \[<chwyt>]. "
+                       "Intro, składają się z samych chwytów również ma być zapisane jako zwrotka.\n"
                        "Linie mają zaczynać się z dużych liter. "
                     #    "Sprawdź czy w wyjściowym tekście występują wyarażenia ' eginverse', ' eginsong' lub ' eginchorus', jeśli tak, to podmień je na odpowiednio na \\beginverse, \\beginsong i \\beginchorus. "
                        "Na koniec upewnij czy wszystkie chwyty są przepisane poprawnie i czy nie ma różnic w tekście. Popraw wszystkie błędy.\n"
@@ -62,7 +63,8 @@ def main():
                     replace(" egin", "\\begin").
                     replace(" rk ", "\\brk ").
                     replace("	extnote", "\\textnote").
-                    replace("\nolyrics", "\n\\nolyrics")
+                    replace("\nolyrics", "\n\\nolyrics").
+                    replace("	olyrics", "\\nolyrics")
                     )
 
     except Exception as e:
